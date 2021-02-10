@@ -14,7 +14,34 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
+app.get('/gettravel',(req,res)=>{
+  // axios
+  //   .get(
+  //     "https://cors-anywhere.herokuapp.com/http://travelvacation.projectstatus.in/api/GetHotelsSearchData"
+  //   )
+  //   .then((result) => {
+  //     return res.send(result.data);
+  //   }).catch(err=>{
+  //     console.log(err)
+  //     return res.send(err)
+  //   })
 
+  var request = require("request");
+  var options = {
+    method: "GET",
+    url: "http://travelvacation.projectstatus.in/api/GetHotelsSearchData",
+    headers: {
+      Cookie:
+        ".AspNetCore.Session=CfDJ8Dv3J1K%2FLSlMs25E0Uj68aJZ%2B4Fp2fsUGdTqAbRtn7ahmeoR6%2Fn4oTestF06QdeBalsGmFjP7Y5Rn3fe0K%2BFOUyoM360Ed4nB2WP1%2FrGw96LIHi7WAroNSeQo5wE%2BBQ3blJRre6%2FOT%2BITbiLRAZYVSUmjQU1YWRnNTgIHXfwl9n9",
+    },
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    return res.json(JSON.parse(response.body))
+  });
+
+})
 app.post("/secure", function (request, response) {
  
   console.log('checkingDtaa',request.body)
